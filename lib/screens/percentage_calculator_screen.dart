@@ -83,55 +83,70 @@ class _PercentageCalculatorScreenState
             fit: BoxFit.cover,
           ),
         ),
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 35),
-            child: SingleChildScrollView(
-              child: Column(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 35),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Column(
                 children: [
-                  const SizedBox(height: 80),
-                  TextField(
-                    controller: _codeController,
-                    keyboardType: TextInputType.number,
-                    style: const TextStyle(color: Colors.white),
-                    decoration: const InputDecoration(labelText: 'Código inicial'),
-                  ),
-                  const SizedBox(height: 20),
-                  TextField(
-                    controller: _peopleController,
-                    keyboardType: TextInputType.number,
-                    style: const TextStyle(color: Colors.white),
-                    decoration: const InputDecoration(labelText: 'Número de personas'),
-                  ),
-                  const SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text("Polivalente", style: TextStyle(color: Colors.white)),
-                      Switch(
-                        value: _isPortainerSelected,
-                        onChanged: (value) {
-                          setState(() {
-                            _isPortainerSelected = value;
-                          });
-                        },
+                  Padding(
+                    padding: const EdgeInsets.only(top: 40),
+                    child: TextField(
+                      controller: _codeController,
+                      textInputAction: TextInputAction.next,
+                      keyboardType: TextInputType.number,
+                      cursorColor: Colors.white,
+                      style: const TextStyle(color: Colors.white),
+                      decoration: const InputDecoration(
+                        label: Text("Código inicial", style: TextStyle(color: Colors.white)),
                       ),
-                      const Text("Portainer", style: TextStyle(color: Colors.white)),
-                    ],
-                  ),
-                  const SizedBox(height: 30),
-                  TextButton(
-                    onPressed: _calculateTargetCode,
-                    style: TextButton.styleFrom(
-                      backgroundColor: Colors.black,
-                      fixedSize: const Size(200, 50),
-                      foregroundColor: Colors.white,
                     ),
-                    child: const Text('Calcular Cambio'),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 30),
+                    child: TextField(
+                      controller: _peopleController,
+                      textInputAction: TextInputAction.done,
+                      onSubmitted: (value) => _calculateTargetCode(),
+                      keyboardType: TextInputType.number,
+                      cursorColor: Colors.black,
+                      style: const TextStyle(color: Colors.white),
+                      decoration: const InputDecoration(
+                        label: Text("Número de personas", style: TextStyle(color: Colors.white)),
+                      ),
+                    ),
                   ),
                 ],
               ),
-            ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text("Polivalente", style: TextStyle(color: Colors.white)),
+                  Switch(
+                    value: _isPortainerSelected,
+                    onChanged: (value) {
+                      setState(() {
+                        _isPortainerSelected = value;
+                      });
+                    },
+                  ),
+                  const Text("Portainer", style: TextStyle(color: Colors.white)),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 40),
+                child: TextButton(
+                  onPressed: _calculateTargetCode,
+                  style: TextButton.styleFrom(
+                    backgroundColor: Colors.black,
+                    fixedSize: const Size(150, 50),
+                    foregroundColor: Colors.white,
+                  ),
+                  child: const Text("Calcular", textAlign: TextAlign.center),
+                ),
+              ),
+            ],
           ),
         ),
       ),
